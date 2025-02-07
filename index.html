@@ -4,6 +4,10 @@
     <title></title>
 </head>
 <body>
-<h1>HI! This is a TEST!</h1>
+<h1>HI! This is my Page!</h1>
+<script>
+    const postHandler = require('./netlify/functions/post-handler');
+    postHandler.default();
+</script>
 </body>
 </html>
