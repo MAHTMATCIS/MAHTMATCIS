@@ -4,7 +4,7 @@ export default (request, context) => {
     const url = new URL(request.url)
     const type = request.type
     const method = request.method;
-    const context1 = request.context;
+    const context1 = request.value
 
     return new Response(`Hello! 200 ${type} ${url} ${method} ${context} ${context1}`)
   } catch (error) {
