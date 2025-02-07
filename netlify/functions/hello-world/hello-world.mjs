@@ -8,7 +8,7 @@ export default async (request, context) => {
 
 
       // 返回POST数据作为JSON响应
-      return new Response("<div><h1>Hello, World!</h1><div>You've sent: <u>${formData}</u></div></div>");
+      return new Response(`<div><h1>Hello, World!</h1><div>You've sent: <u>${formData}</u></div></div>`);
     } else if(request.method === 'GET') {
       // 如果不是POST请求，返回一个提示信息
       return new Response(`<div><h1>Hello, Everybody!</h1><div>Thank you to visit this page <u>"Far from the distance".</u></div><div><p style="font-family: 'Arial Black',serif ; color: red ; text-underline: red"><u>BUT</u></p> this page isn't any public page. So you'd better go away <p style="font-family: 'Arial Black',serif ; color: red ; text-underline: red; font-size: 40px"><u>NOW</u></p></div></div>`, {
