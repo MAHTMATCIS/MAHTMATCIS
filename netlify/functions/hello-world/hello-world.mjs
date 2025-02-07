@@ -2,7 +2,7 @@
 export default (request, context) => {
   try {
     const url = new URL(request.url)
-    const subject = url.searchParams.get('name') || 'World'
+    const subject = context.toString();
 
     return new Response(`Hello ${subject}`)
   } catch (error) {
