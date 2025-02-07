@@ -2,9 +2,11 @@
 export default (request, context) => {
   try {
     const url = new URL(request.url)
-    const subject = context.toString();
+    const type = request.type
+    const method = request.method;
+    const context1 = request.context;
 
-    return new Response(`Hello ${subject}`)
+    return new Response(`Hello! 200 ${type} ${url} ${method} ${context} ${context1}`)
   } catch (error) {
     return new Response(error.toString(), {
       status: 500,
