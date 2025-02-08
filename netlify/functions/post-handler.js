@@ -23,7 +23,7 @@ exports.handler = async (event) => {
     }
     return result
   }
-
+  console.log('Received request with method:', httpMethod);
   if (httpMethod === 'POST') {
     try {
       // 解析JSON body，假定body格式为{ username: 'username', password: 'password' }
