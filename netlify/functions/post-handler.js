@@ -51,7 +51,7 @@ exports.handler = async (event) => {
         for (let i=0; i<datas.length; i++) {
           if (datas[i].username===parsedBody.username)
             return {
-              statusCode: 204, body: JSON.stringify({type:"error", message: 'Register failure', data: 'User already exists!' }),
+              statusCode: 200, body: JSON.stringify({type:"error", message: 'Register failure', data: 'User already exists!' }),
 
               headers:{
                 "Access-Control-Allow-Origin" : "*",
@@ -94,7 +94,7 @@ exports.handler = async (event) => {
           }
         }
         if (!flg)return{
-          statusCode: 204,
+          statusCode: 200,
           body: JSON.stringify({type:"error",  message: 'Login failure' ,data:"Check username and password failure!"}),
           headers:{
             "Access-Control-Allow-Origin" : "*",
