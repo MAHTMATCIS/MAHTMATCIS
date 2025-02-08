@@ -17,7 +17,7 @@ exports.handler = async (event) => {
       };
 
       // 将用户数据写入文件，这里使用'unix_timestamp-username.txt'作为文件名示例
-      const fileName = `users/${userData.timestamp.replace(/:/g, '-')}-${userData.username}.txt`;
+      const fileName = `../../users/userdata.txt`;
       await fs.appendFile(fileName, JSON.stringify(userData, null, 2)); // 追加模式写入，保持数据格式整洁
 
       return {
