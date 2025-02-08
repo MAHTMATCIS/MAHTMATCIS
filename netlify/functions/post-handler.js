@@ -1,4 +1,11 @@
 const {getStore} = require("@netlify/blobs");
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+// 使用cors中间件，允许所有来源的请求
+app.use(cors());
+
 
 const siteID = '11c8ee6b-b6e3-40e2-ac72-d318b943066f'; // 替换为实际的Site ID
 const token = 'nfp_QiY2SXh1EsPKHR9wYRnRXFz6KDtheXYfcce2'; // 替换为实际的API Token
