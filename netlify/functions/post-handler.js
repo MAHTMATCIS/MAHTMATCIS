@@ -19,15 +19,19 @@ exports.handler = async (event) => {
           siteID:siteID,
           token:token
       });
-      const data={
+
+
+      let data = {
         username: parsedBody.username,
         password: parsedBody.password
-      }.toString();
+      };
+      data=JSON.stringify(data);
+      const from=storage.get('userData');
+      console.log(`data from the storage`,from);
+      data=from+"\n"+data;
 
       await storage.set('userData', data);
       console.log(`File uploaded successfully. Blob data: ${data}`);
-
-
 
       return {
         statusCode: 200,
