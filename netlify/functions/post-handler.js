@@ -125,7 +125,7 @@ exports.handler = async (event) => {
       };
     }
 
-  } else if (httpMethod==='OPTION'){
+  } else if (httpMethod==='OPTIONS'){
     return {
       statusCode: 200,
       headers:{
