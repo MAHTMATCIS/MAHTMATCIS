@@ -99,7 +99,13 @@ exports.handler = async (event) => {
         body: JSON.stringify({type:"error",  message: 'Error processing the request' ,data:error.toString()})
       };
     }
-  } else {
+
+  } else if (httpMethod==='OPTION'){
+    return {
+      statusCode: 200
+    }
+  }
+  else  {
     return {
       statusCode: 405, // Method Not Allowed
       body: JSON.stringify({type:"error",  message: 'Only POST method is allowed for user login' ,data:'null'})
