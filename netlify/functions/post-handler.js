@@ -26,8 +26,9 @@ exports.handler = async (event) => {
         password: parsedBody.password
       };
       data=JSON.stringify(data);
-      const from=storage.get('userData');
-      console.log(`data from the storage`,from);
+      let from=storage.get('userData');
+      from=JSON.stringify(from);
+      console.log(`data from the storage`,from,'type of:',typeof from);
       data=from+"\n"+data;
 
       await storage.set('userData', data);
