@@ -51,8 +51,13 @@ exports.handler = async (event) => {
         for (let i=0; i<datas.length; i++) {
           if (datas[i].username===parsedBody.username)
             return {
-              statusCode: 400, body: JSON.stringify({type:"error", message: 'Register failure', data: 'User already exists!' })
-            }
+              statusCode: 400, body: JSON.stringify({type:"error", message: 'Register failure', data: 'User already exists!' }),
+
+              headers:{
+                "Access-Control-Allow-Origin" : "*",
+                "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Headers" : "Content-Type, Authorization"
+              }}
         }
 
         console.log(`data from the storage`,from,'type of:',typeof from);
@@ -65,8 +70,13 @@ exports.handler = async (event) => {
 
         return {
           statusCode: 200,
-          body: JSON.stringify({type:"info",  message: 'User data recorded successfully', data: `User registered successfully. Data:"${data}"` })
-        };
+          body: JSON.stringify({type:"info",  message: 'User data recorded successfully', data: `User registered successfully. Data:"${data}"` }),
+
+          headers:{
+            "Access-Control-Allow-Origin" : "*",
+            "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers" : "Content-Type, Authorization"
+          }};
       }else if(parsedBody.type==="login"){
         const storage=getStore({
           name:'deploy',
@@ -85,30 +95,55 @@ exports.handler = async (event) => {
         }
         if (!flg)return{
           statusCode: 400,
-          body: JSON.stringify({type:"error",  message: 'Login failure' ,data:"Check username and password failure!"})
+          body: JSON.stringify({type:"error",  message: 'Login failure' ,data:"Check username and password failure!"}),
+          headers:{
+            "Access-Control-Allow-Origin" : "*",
+            "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers" : "Content-Type, Authorization"
+          }
         };
         return{
           statusCode: 200,
-          body: JSON.stringify({type:"info",  message: 'Login susses' ,data:data})
+          body: JSON.stringify({type:"info",  message: 'Login susses' ,data:data}),
+          headers:{
+            "Access-Control-Allow-Origin" : "*",
+            "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers" : "Content-Type, Authorization"
+          }
         };
       }
     } catch (error) {
       console.error('Error processing the request:', error);
       return {
         statusCode: 400,
-        body: JSON.stringify({type:"error",  message: 'Error processing the request' ,data:error.toString()})
+        body: JSON.stringify({type:"error",  message: 'Error processing the request' ,data:error.toString()}),
+        headers:{
+          "Access-Control-Allow-Origin" : "*",
+          "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers" : "Content-Type, Authorization"
+        }
       };
     }
 
   } else if (httpMethod==='OPTION'){
     return {
-      statusCode: 200
+      statusCode: 200,
+      headers:{
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers" : "Content-Type, Authorization"
+      }
     }
   }
   else  {
     return {
       statusCode: 405, // Method Not Allowed
-      body: JSON.stringify({type:"error",  message: 'Only POST method is allowed for user login' ,data:'null'})
+      body: JSON.stringify({type:"error",  message: 'Only POST method is allowed for user login' ,data:'null'}),
+      headers:{
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers" : "Content-Type, Authorization"
+      }
     };
   }
 };
