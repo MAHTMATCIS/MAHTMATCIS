@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-// 使用cors中间件，允许所有来源的请求
+//
 app.use(cors());
 
 
