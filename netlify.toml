@@ -4,4 +4,3 @@ for = "/*" # you can configure the correct paths here
 access-control-allow-origin = "*" # see a list of allowed values here: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
 Access-Control-Allow-Origin = "*"
 Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
-Access-Control-Allow-Headers = "Content-Type, Authorization"

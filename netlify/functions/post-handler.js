@@ -56,7 +56,6 @@ exports.handler = async (event) => {
               headers:{
                 "Access-Control-Allow-Origin" : "*",
                 "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE, OPTIONS",
-                "Access-Control-Allow-Headers" : "Content-Type, Authorization"
               }}
         }
 
@@ -75,7 +74,6 @@ exports.handler = async (event) => {
           headers:{
             "Access-Control-Allow-Origin" : "*",
             "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers" : "Content-Type, Authorization"
           }};
       }else if(parsedBody.type==="login"){
         const storage=getStore({
@@ -99,7 +97,6 @@ exports.handler = async (event) => {
           headers:{
             "Access-Control-Allow-Origin" : "*",
             "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers" : "Content-Type, Authorization"
           }
         };
         return{
@@ -108,7 +105,6 @@ exports.handler = async (event) => {
           headers:{
             "Access-Control-Allow-Origin" : "*",
             "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers" : "Content-Type, Authorization"
           }
         };
       }
@@ -120,7 +116,6 @@ exports.handler = async (event) => {
         headers:{
           "Access-Control-Allow-Origin" : "*",
           "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers" : "Content-Type, Authorization"
         }
       };
     }
