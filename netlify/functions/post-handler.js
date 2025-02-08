@@ -1,6 +1,4 @@
 const {getStore} = require("@netlify/blobs");
-const fs = require('fs').promises; // 引入fs模块的Promise版本以支持异步操作
-import {getStore} from "@netlify/blobs";
 
 exports.handler = async (event) => {
   const { httpMethod, body } = event;
