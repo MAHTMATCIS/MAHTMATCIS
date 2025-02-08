@@ -9,7 +9,7 @@ app.use(cors());
 const headers={
   "Access-Control-Allow-Origin" : "*",
   "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers":"Content-Type, Authorization, content-type, authorization, Accept, Authorization, Content-Type, Content-Length, X-CSRF-Token, Token, session, Origin, Host, Connection, Accept-Encoding, Accept-Language, X-Requested-With, Authorization, Content-Type, X-Requested-With, Accept, Accept-Language, Origin, Cache-Control, Pragma, Expires, Range, DNT, X-XSRF-TOKEN, X-Traceid, X-Gseq, Traceid, Token, X-Language-Category, x-timestamp, yxw-accounttype, yxw-secretid, _env_name_, X-Tenant-Id, X-Appid, X-D2, X-Aid, X-Token, X-Token-Type, X-Nonce, X-Platform, X-Sign, X-Ts, X-App-Version, X-Sign-Retry, X-Auto-Test, X-Aid-Skey, X-Login-Type, X-Corp-Uin，x-ijt",
+  "Access-Control-Allow-Headers":"Content-Type, Authorization, content-type, authorization, Accept, Authorization, Content-Type, Content-Length, X-CSRF-Token, Token, session, Origin, Host, Connection, Accept-Encoding, Accept-Language, X-Requested-With, Authorization, Content-Type, X-Requested-With, Accept, Accept-Language, Origin, Cache-Control, Pragma, Expires, Range, DNT, X-XSRF-TOKEN, X-Traceid, X-Gseq, Traceid, Token, X-Language-Category, x-timestamp, yxw-accounttype, yxw-secretid, _env_name_, X-Tenant-Id, X-Appid, X-D2, X-Aid, X-Token, X-Token-Type, X-Nonce, X-Platform, X-Sign, X-Ts, X-App-Version, X-Sign-Retry, X-Auto-Test, X-Aid-Skey, X-Login-Type, X-Corp-Uin, x-ijt",
   "Content-Type": "application/json",
 }
 
