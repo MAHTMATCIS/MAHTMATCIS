@@ -13,6 +13,7 @@ const token = 'nfp_QiY2SXh1EsPKHR9wYRnRXFz6KDtheXYfcce2'; // 替换为实际的A
 
 exports.handler = async (event) => {
   const { httpMethod, body } = event;
+  console.log('Received request with method:', httpMethod);
   function parseUserData(data) {
     let result=[];
     if (data!=null){
@@ -23,7 +24,6 @@ exports.handler = async (event) => {
     }
     return result
   }
-  console.log('Received request with method:', httpMethod);
   if (httpMethod === 'POST') {
     try {
       // 解析JSON body，假定body格式为{ username: 'username', password: 'password' }
@@ -51,7 +51,7 @@ exports.handler = async (event) => {
         for (let i=0; i<datas.length; i++) {
           if (datas[i].username===parsedBody.username)
             return {
-              statusCode: 400, body: JSON.stringify({type:"error", message: 'Register failure', data: 'User already exists!' }),
+              statusCode: 204, body: JSON.stringify({type:"error", message: 'Register failure', data: 'User already exists!' }),
 
               headers:{
                 "Access-Control-Allow-Origin" : "*",
@@ -94,7 +94,7 @@ exports.handler = async (event) => {
           }
         }
         if (!flg)return{
-          statusCode: 400,
+          statusCode: 204,
           body: JSON.stringify({type:"error",  message: 'Login failure' ,data:"Check username and password failure!"}),
           headers:{
             "Access-Control-Allow-Origin" : "*",
