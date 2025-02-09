@@ -73,7 +73,7 @@ exports.handler = async (event) => {
 
         return {
           statusCode: 200,
-          body: JSON.stringify({type:"info",  message: 'User data recorded successfully', data: `User registered successfully. Data:"${data}"` }),
+          body: JSON.stringify({type:"info",  message: 'User data recorded successfully', data: `User registered successfully.` }),
 
           headers:headers};
       }else if(parsedBody.type==="login"){
