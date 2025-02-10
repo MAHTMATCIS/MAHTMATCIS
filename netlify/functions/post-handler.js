@@ -1,10 +1,28 @@
 const {getStore} = require("@netlify/blobs");
 const express = require('express');
 const cors = require('cors');
+const crypto = require('crypto');
+
 const app = express();
 
 //
 app.use(cors());
+
+function encrypt(text) {
+  // 将中文字符串转换为Buffer，以便进行加密处理
+  const buffer = Buffer.from(text, 'utf8');
+
+  // 创建一个SHA256的哈希对象
+  const hash = crypto.createHash('sha256');
+
+  // 更新哈希内容
+  hash.update(buffer);
+
+  // 获取哈希的 hexadecimal 字符串表示形式
+  return hash.digest('hex');
+
+}
+
 
 const headers={
   "Access-Control-Allow-Origin" : "*",
@@ -26,6 +44,7 @@ exports.handler = async (event) => {
     if (data!=null){
       let datas=data.split('\n');
       for(let i=0; i<datas.length; i++) {
+        if (datas[i])
         result.push(JSON.parse(datas[i]))
       }
     }
@@ -48,7 +67,10 @@ exports.handler = async (event) => {
         let data = {
           username: parsedBody.username,
           password: parsedBody.password,
-          data: ""
+          data: "",
+          cridID:encrypt(parsedBody.username),
+          passwordID:encrypt(parsedBody.password),
+          power: 0
         };
 
         data=JSON.stringify(data);
@@ -102,6 +124,111 @@ exports.handler = async (event) => {
           body: JSON.stringify({type:"info",  message: 'Login susses' ,data:data}),
           headers:headers
         };
+      }else if (parsedBody.type==="setData"){
+        const storage=getStore({
+          name:'deploy',
+          siteID:siteID,
+          token:token
+        });
+        let from=await storage.get('userData');
+        console.log(`data from the storage`,from,'type of:',typeof from);
+
+        let datas=parseUserData(from);
+        let data=parsedBody.data;
+        data=JSON.stringify(data);
+        let newText="";
+        let sus=false;
+        for (let i=0; i<datas.length; i++) {
+          if (datas[i].username===parsedBody.username){
+            datas[i].data=data;
+            sus=true;
+          }
+          newText+=JSON.stringify(datas[i])+'\n';
+        }
+
+
+        if (sus)
+          return{
+            statusCode: 200,
+            body: JSON.stringify({type:"info",  message: 'Setting susses' ,data:null}),
+            headers:headers
+          }
+        else
+          return{
+            statusCode: 200,
+            body: JSON.stringify({type:"error",  message: 'Setting fail' ,data:"Cannot find user!"}),
+            headers:headers
+          }
+
+      }else if (parsedBody.type==="getData"){
+        const storage=getStore({
+        name:'deploy',
+        siteID:siteID,
+        token:token
+      });
+        let from=await storage.get('userData');
+        console.log(from);
+        let datas=parseUserData(from);
+        for (let i=0; i<datas.length; i++) {
+          if (datas[i].username===parsedBody.username){
+            return{
+              statusCode: 200,
+              body: JSON.stringify({type:"info",  message: 'Getting susses' ,data:JSON.parse(datas[i].data)}),
+              headers:headers
+            };
+          }
+        }
+        return{
+          statusCode: 200,
+          body: JSON.stringify({type:"error",  message: 'Setting fail' ,data:"Cannot find user!"}),
+          headers:headers
+        };
+
+      }else if (parsedBody.type==="logoff"){
+
+        if (parsedBody.username==="ADMIN"){
+          window.console.log('%cCannot logoff ADMIN!',"color: red")
+          return{
+            statusCode: 200,
+            body: JSON.stringify({type:"error",  message: 'Logoff fail' ,data:"Cannot logoff ADMIN!"}),
+            headers:headers
+          };
+        }
+
+        const storage=getStore({
+          name:'deploy',
+          siteID:siteID,
+          token:token
+        });
+        let from=await storage.get('userData');
+        console.log(`data from the storage`,from,'type of:',typeof from);
+
+        let datas=parseUserData(from);
+        let newText="";
+        let sus=false;
+        for (let i=0; i<datas.length; i++) {
+          if (datas[i].username===parsedBody.username){
+            sus=true;
+            continue;
+          }
+          newText+=JSON.stringify(datas[i])+'\n';
+        }
+        console.log("newText:\n",newText)
+        await storage.set('userData', newText)
+        if (sus){
+          return{
+            statusCode: 200,
+            body: JSON.stringify({type:"info",  message: 'Logoff susses' ,data:null}),
+            headers:headers
+          };
+        }else{
+          return{
+            statusCode: 200,
+            body: JSON.stringify({type:"error",  message: 'Logoff fail' ,data:"Unknown username!"}),
+            headers:headers
+          };
+        }
+
       }
     } catch (error) {
       console.error('Error processing the request:', error);
