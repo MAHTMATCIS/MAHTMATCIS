@@ -229,6 +229,74 @@ exports.handler = async (event) => {
           };
         }
 
+      }else if(parsedBody.type==="getDataBase"){
+        const storage=getStore({
+          name:parsedBody.username,
+          siteID:siteID,token:token        });
+        const database=parsedBody.db;
+        let data;
+        try{
+          data=await storage.get(database)
+        }catch (error){
+          console.error('error in '+parsedBody)
+          return {
+            statusCode: 200,
+            body: JSON.stringify({type:"error",  message: 'Error database' ,data:parsedBody.db}),
+            headers:headers
+          };
+        }
+        console.log(data);
+        return {
+          statusCode: 200,
+          body: JSON.stringify({type:"info",  message: 'You database' ,data:data}),
+          headers:headers
+        };
+      }else if (parsedBody.type==="setDataBase"){
+        const storage=getStore({
+          name:parsedBody.username,
+          siteID:siteID,token:token});
+        const database=parsedBody.db;
+        let data=parsedBody.data;
+
+        await storage.set(database, data);
+
+        console.log(data);
+        return {
+          statusCode: 200,
+          body: JSON.stringify({type:"info",  message: 'Setting susses' ,data:null}),
+          headers:headers
+        };
+      }else if (parsedBody.type==="getAllUser"){
+        const storage=getStore({        name:'deploy',  siteID:siteID,          token:token
+        });
+        console.log('receive data', parsedBody);
+        return {
+          statusCode: 200,
+          body: JSON.stringify({type:"info",  message: 'Getting Susses' ,data:await storage.get('userData')}),
+          headers:headers
+        };
+      }else if(parsedBody.type==='checkUser'){
+        const storage=getStore({
+          name:"deploy",
+          siteID:siteID,
+          token:token
+        });
+        let critID=parsedBody.critID,passID=parsedBody.passID,username=parsedBody.username;
+        let datas=storage.get('userData');
+        datas=parseUserData(datas);
+        for (let i of datas){
+          if (i['username']===username){
+            if (critID===i['cridID'] && passID===i['passID'])return {
+              statusCode: 200,
+              body: JSON.stringify({type:"info",  message: 'susses' ,data:null}),
+              headers:headers
+            };
+          }
+        }return {
+          statusCode: 200,
+          body: JSON.stringify({type:"error",  message: 'Error' ,data:null}),
+          headers:headers
+        };
       }
     } catch (error) {
       console.error('Error processing the request:', error);
