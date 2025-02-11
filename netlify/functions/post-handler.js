@@ -111,7 +111,8 @@ exports.handler = async (event) => {
         for (let i=0; i<datas.length; i++) {
           if (datas[i].username===parsedBody.username && datas[i].password===parsedBody.password) {
             flg=true;
-            data=datas.data;
+            data=datas[i];
+            break
           }
         }
         if (!flg)return{
@@ -121,7 +122,7 @@ exports.handler = async (event) => {
         };
         return{
           statusCode: 200,
-          body: JSON.stringify({type:"info",  message: 'Login susses' ,data:data}),
+          body: JSON.stringify({type:"info",  message: 'Login susses' ,data:data, nodata:true}),
           headers:headers
         };
       }else if (parsedBody.type==="setData"){
