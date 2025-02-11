@@ -2,10 +2,27 @@
 <head>
     <script src="netlify/functions/post-handler.js"></script>
     <title></title>
+    <script src="markdown-it.min.js"></script>
+    <meta charset="GBK">
 </head>
 <body>
 <h1>HI! This is my Page!</h1>
 <a href="netlify/functions/post-handler">This is the API of the post-handler.js</a>
 <a href=".netlify/functions/post-handler">Or this of the post-handler.js</a>
+<script>
+    // 第二步：使用markdown-it转换Markdown文本
+    var md = window.markdownit();
+    var markdownText = `
+[![Netlify Status](https://api.netlify.com/api/v1/badges/11c8ee6b-b6e3-40e2-ac72-d318b943066f/deploy-status)](https://app.netlify.com/sites/mahtapi/deploys)
+`;
+
+    // 将Markdown文本转换为HTML
+    var result = md.render(markdownText);
+
+    // 第三步：将转换后的HTML插入到页面中
+    document.write(`<div>${result}</div>`)
+</script>
+
+
 </body>
 </html>
