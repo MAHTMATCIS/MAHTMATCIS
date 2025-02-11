@@ -282,7 +282,7 @@ exports.handler = async (event) => {
           token:token
         });
         let critID=parsedBody.critID,passID=parsedBody.passID,username=parsedBody.username;
-        let datas=storage.get('userData');
+        let datas=await storage.get('userData');
         datas=parseUserData(datas);
         for (let i of datas){
           if (i['username']===username){
